@@ -78,7 +78,6 @@ function tekst2DOM(t) {
         return s;
       }
       // Vahetärgid eeldavad kaksikkesktähte ja peavad olema juba töödeldud.
-      console.log('tekst2DOM: s: undefined');
       if (silumistase > 0) {
         console.log('tekst2DOM: s: undefined');
       }
@@ -97,7 +96,7 @@ function tekst2DOM(t) {
       v--;
     }
 
-    // Siin peavad esimene ja viimane tärk olema üks ja sama täht
+    // Siin peavad esimene ja viimane tärk olema üks ja sama täht.
     if (t[e] !== t[v]) {
       if (silumistase > 0) {
         console.log('tekst2DOM: s: undefined');
@@ -107,7 +106,7 @@ function tekst2DOM(t) {
 
     // Kas juba kesktäht?
     if (tl + 2 == ta) {
-      // Kesktähtede paar
+      // Kesktähtede paar.
       s.K1 = t[e];
       s.K2 = t[e];
       e++;
@@ -142,7 +141,7 @@ function tekst2Kursor(t) {
   var cumul = 0;
   var spanIDs = ['A', 'K1', 'V', 'K2', 'B'];
   for (var i = 0; i < spanIDs.length; i++) {
-    // span-elemendi pikkus
+    // span-elemendi pikkus.
     var sl = s[spanIDs[i]].length;
     if (sl > 0) {
       if (cumul + sl < ti) {

@@ -88,7 +88,7 @@ input {
   color: Gray;
 }
 
-/* Silumispaan */
+/* Salvestuspaan */
 #St {
   line-height: 1.0 !important;
 }
@@ -98,7 +98,6 @@ input {
   border: 1px solid Aqua;
   background-color: Azure;
 }
-
 .aarisega {
   margin: 0.8rem;
 }
@@ -108,7 +107,10 @@ input {
   cursor: pointer;
   color: darkgray;
 }
-.disabled { color: Gainsboro !important; cursor: auto; }
+.disabled { 
+  color: Gainsboro !important;
+  cursor: auto;
+}
 
 /* Lingid */
 a, a:hover, a:active, a:visited {

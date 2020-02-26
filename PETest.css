@@ -6,8 +6,6 @@
 
   body { padding: 2rem 2rem 8rem 2rem; }
 
-  #Testitulemused {  }
-
   .tulemuserida { 
     display: flex;
     align-items: center;

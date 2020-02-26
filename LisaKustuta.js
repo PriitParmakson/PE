@@ -1,3 +1,6 @@
+'use strict';
+
+// Tärkide eemaldamine ja lisamine teksti.
 
 // eemaldaTark eemaldab samatekstist t kursori ees või järel oleva tärgi.
 // Samatekst peab olema esitatud sõnena, milles kursori asukohta näitab
@@ -20,8 +23,7 @@ function eemaldaTark(t, b) {
   if (kirjavm(t[rpos])) {
     return t.substring(0, rpos) + t.substring(rpos + 1);
   }
-  // Tähe eemaldamine
-  // Läbi tekst mõlemast otsast, tähepaari kaupa.
+  // Tähe eemaldamine. Läbi tekst mõlemast otsast, tähepaari kaupa.
   // Esimese ja viimase tärgi positsioon vaadeldavas sõnelõigus.
   var e = 0;
   var v = t.length - 1;
@@ -59,8 +61,7 @@ function lisaTark(t, c) {
   if (kirjavm(c)) {
     return t.substring(0, kpos) + c + '|' + t.substring(kpos + 1);
   }
-  // Tähe lisamine.
-  // Läbi tekst mõlemast otsast, tähepaari kaupa.
+  // Tähe lisamine. Läbi tekst mõlemast otsast, tähepaari kaupa.
   // Esimese ja viimase tärgi positsioon vaadeldavas sõnelõigus.
   var e = 0;
   var v = t.length - 1;

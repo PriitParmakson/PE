@@ -1,17 +1,17 @@
 'use strict';
 
 // Mida suurem, seda rohkem teavet konsoolile kuvatakse.
-// 0 - ei kuvata midagi
+// 0 - ei kuvata midagi.
 var silumistase = 2;
 
-// Peaprogramm. Mitmesugused algväärtustamised
+// Peaprogramm. Mitmesugused algväärtustamised.
 function init() {
 
   seaInfopaaniKasitlejad();
   seaRedaktoriKasitlejad();
   seaTekstinupukasitlejad();
 
-  // Algustekst (kursor)
+  // Algustekst, DOM-kujul, koos kursoriga.
   kuvaTekst(
     {
       A: 'aamen u',
@@ -25,7 +25,7 @@ function init() {
 
 }
 
-// Infopaani käsitlejad: avamine, sulgemine
+// Infopaani käsitlejad: avamine, sulgemine.
 function seaInfopaaniKasitlejad() {
   $('#Info').click(() => {
     $('#Infopaan').removeClass('peidetud');
@@ -38,7 +38,7 @@ function seaInfopaaniKasitlejad() {
   });
 }
 
-// Sea sisestatava teksti käsitlejad ('Uus', 'Vaheta pooled', 'Salvesta')
+// Sea sisestatava teksti käsitlejad ('Uus', 'Vaheta pooled', 'Salvesta').
 function seaTekstinupukasitlejad() {
 
   $('#Uusnupp').click(() => {
@@ -74,15 +74,13 @@ function seaTekstinupukasitlejad() {
   });
 }
 
-// Samatekstiredaktori töötsükkel
-//
 // Samatekst kuvatakse HTML div-elemendis 'Tekst'. Elemendil on atribuut 
 // contenteditable.
 //
 // Teksti muutvaid klahvivajutusi käsitletakse sündmuste KEYDOWN, KEYPRESS ja
 // PASTE kaudu.
-// Sündmus 'keydown' tekib klahvi vajutamisel esimesena.
-// Seejärel tekib 'keypress'.
+// Sündmus KEYDOWN tekib klahvi vajutamisel esimesena.
+// Seejärel tekib KEYPRESS.
 // Teksti navigeerivaid kursorit (caret) muutvaid sündmusi (vasakule, paremale)
 // otseselt ei töötle, välja arvatud see, et nende toime blokeeritakse 
 // veateaterežiimis.
@@ -167,7 +165,7 @@ function kuvaTekst(s, kursor) {
     );
   }
 
-  // Uuenda täheloendurit
+  // Uuenda täheloendurit.
   var tahti = loendaTahed(s.A) * 2 +
     s.K1.length + s.K2.length;
   var loenduritekst;
@@ -213,7 +211,7 @@ function kuvaTekst(s, kursor) {
 // ctrlDown on mõlemal juhul tõene.
 function keydownKasitleja(e) {
   var keyCode = e.keyCode;
-  var ctrlDown = e.ctrlKey || e.metaKey // Mac-i tugi
+  var ctrlDown = e.ctrlKey || e.metaKey // Mac-i tugi.
 
   if (silumistase > 1) {
     console.log(
@@ -234,21 +232,20 @@ function keydownKasitleja(e) {
 }
 
 // keypressKasitleja käsitleb sündmuse KEYPRESS. Kui klahvivajutusest tekkis
-// tärgikood, siis suunatakse tähe või punktuatsioonimärgi töötlusele. Kontroll,
+// tärgikood, siis suunatakse tähe või kirjavahemärgi töötlusele. Kontroll,
 // kas märgikood on lubatute hulgas, tehakse lisaTahtVoiPunktuatsioon-is. 
 // Vaikimisi toiming tõkestatakse.
 // Sündmus KEYPRESS tekib ka Ctrl-kombinatsioonide vajutamisel.
 // Kui Teatepaan on avatud, siis klahvivajutust ignoreeritakse.
 function keypressKasitleja(e) {
   var charCode = e.charCode;
-  var ctrlDown = e.ctrlKey || e.metaKey // Mac-i tugi
+  var ctrlDown = e.ctrlKey || e.metaKey // Mac-i tugi.
 
-  // Võte reavahetuse (enter, keyCode 13) kinnipüüdmiseks ja töötlemiseks
+  // Võte reavahetuse (enter, keyCode 13) kinnipüüdmiseks ja töötlemiseks.
   if (e.keyCode == 13) {
     charCode = 13;
   }
 
-  // Logimine
   if (silumistase > 1) {
     if (ctrlDown) {
       console.log('keypressKasitleja: klahvivajutus Ctrl');
@@ -262,14 +259,14 @@ function keypressKasitleja(e) {
     }
   }
 
-  // Ctrl-kombinatsioone tähesisestuseks ei loe
+  // Ctrl-kombinatsioone tähesisestuseks ei loe.
   if (!ctrlDown && charCode != null && charCode != 0) {
     e.preventDefault();
     lisaTahtVoiPunktuatsioon(charCode);
   }
 }
 
-// tootleEriklahv töötleb 'keydown' kaudu kinnipüütud huvipakkuvaid klahvivajutusi.
+// tootleEriklahv töötleb KEYDOWN kaudu kinnipüütud huvipakkuvaid klahvivajutusi.
 function tootleEriklahv(keyCode) {
   switch (keyCode) {
     case 8: // Backspace
@@ -295,7 +292,7 @@ function tootleEriklahv(keyCode) {
 
 // lisaTahtVoiPunktuatsioon lisab kasutaja sisestatud tähe või kirjavahemärgi.
 // Tähe lisamisel lisatakse ka peegeltäht.
-// Kui lisamisel tekib korduv tühik, siis 
+// Kui lisamisel tekib korduv tühik, siis see eemaldatakse.
 function lisaTahtVoiPunktuatsioon(charCode) {
   // Kas märgikood on lubatute hulgas?
   if (!(tahtKood(charCode) || kirjavmKood(charCode))) {
@@ -304,8 +301,8 @@ function lisaTahtVoiPunktuatsioon(charCode) {
   // Enter vajutus asenda siseesituses tärgiga '/'.
   var charTyped = charCode == 13 ? '/' : String.fromCharCode(charCode);
   // Silumisteade
-  var k = loeKursor(); // Kursor
-  var s = loeDOM(); // Samatekst DOM-kujul
+  var k = loeKursor(); // Kursor.
+  var s = loeDOM(); // Samatekst DOM-kujul.
 
   var t = DOM2Tekst(s, k);
   t = lisaTark(t, charTyped);
@@ -344,8 +341,8 @@ function loeKursor() {
 // Loeb DOM-st ja kirjutab tagasi.
 // Parameeter: suurtaheks - boolean.
 function muudaTaheregister(suurtaheks) {
-  var k = loeKursor(); // Kursor
-  var s = DOM2Sise(); // Samatekst DOM-kujul
+  var k = loeKursor(); // Kursor.
+  var s = DOM2Sise(); // Samatekst DOM-kujul.
   // Kursori järel olev tärk.
   var kj = s[k.Span].charAt(k.Pos);
 
@@ -368,8 +365,8 @@ function muudaTaheregister(suurtaheks) {
 // kuvaKesktahtYhekordselt lülitab, vastavalt parameetrile mode, sisse v välja
 // kesktähe ühekordse kuvamise.
 function kuvaKesktahtYhekordselt(mode) {
-  var s = loeDOM(); // Samatekst DOM-kujul
-  var k = loeKursor(); // Kursor
+  var s = loeDOM(); // Samatekst DOM-kujul.
+  var k = loeKursor(); // Kursor.
 
   // Lülita ühekordne kuvamine sisse/välja.
   if (mode) {
@@ -387,8 +384,8 @@ function kuvaKesktahtYhekordselt(mode) {
 // tootleBackspace eemaldab kursori ees oleva tärgi.
 // Eemaldab ka eemaldamise tulemusena võimalikult tekkivad korduvad tühikud.
 function tootleBackspace() {
-  var k = loeKursor(); // Kursor
-  var s = loeDOM(); // Samatekst DOM-kujul
+  var k = loeKursor(); // Kursor.
+  var s = loeDOM(); // Samatekst DOM-kujul.
 
   var t = DOM2Tekst(s, k);
   t = eemaldaTark(t, true);
@@ -403,8 +400,8 @@ function tootleBackspace() {
 // tootleDelete eemaldab kursori järel oleva tärgi.
 // Kui eemaldamise tulemus tekkis korduv tühik, siis eemaldab ka selle.
 function tootleDelete() {
-  var k = loeKursor(); // Kursor
-  var s = loeDOM(); // Samatekst DOM-kujul
+  var k = loeKursor(); // Kursor.
+  var s = loeDOM(); // Samatekst DOM-kujul.
 
   var t = DOM2Tekst(s, k);
   t = eemaldaTark(t, false);
@@ -415,6 +412,3 @@ function tootleDelete() {
 
   kuvaTekst(s, k);
 }
-
-
-
