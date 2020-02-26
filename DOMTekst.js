@@ -54,13 +54,13 @@ function tekst2DOM(t) {
     return s;
   }
 
-  // Eemalda kursor ('|');
+  // Eemalda kursor ('|').
   t = t.replace(/\|/g, "");
   console.log('Kursor eemaldatud: ' + t);
 
   // Ettevalmistused kesktähtede äratundmiseks.
   var tl = 0; // Läbitud tähti
-  var ta = tahtiTekstis(t);
+  var ta = loendaTahed(t);
 
   // Esimese ja viimase tärgi positsioon vaatlusaluses sõne lõigus.  
   var e = 0;
@@ -158,36 +158,4 @@ function tekst2Kursor(t) {
     console.log("tekst2Kursor: k: " + JSON.stringify(k));
   }
   return k;
-}
-
-// ------------------------------
-
-// tarkeKursoriEes tagastab kursori ees olevate tärkide arvu, üle kõigi 
-// span-elementide. Parameetrid: s - samatekst, siseesituses; k - kursor.
-function tarkeKursoriEes(s, k) {
-  var sum = 0;
-  switch (k.Span) {
-    case 'A': 
-      return k.Pos
-    case 'K1':
-      return s.A.length + k.Pos;
-    case 'V':
-      return s.A.length + 1 + k.Pos;
-    case 'K2':
-      return s.A.length + 1 + s.V.length + k.Pos;
-    case 'B':
-      return s.A.length + 1 + s.V.length + s.K2.length + k.Pos;
-  }
-}
-
-// tahtiTekstis tagastab samatekstis t sisalduvate tähtede arvu.
-// t peab olema sõne, milles on tärgiga '|' esitatud kursor.
-function tahtiTekstis(t) {
-  var th = 0;
-  for (var i = 0; i < t.length; i++) {
-    if (taht(t[i])) {
-      th++;
-    }
-  }
-  return th;
 }

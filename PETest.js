@@ -1,6 +1,8 @@
 var edukaidTeste = 0;
 var mitteedukaidTeste = 0;
 
+var silumistase = 2;
+
 // taidaTestid täidab testid.
 function taidaTestid() {
   lisaTarkTestid();
@@ -8,8 +10,6 @@ function taidaTestid() {
   DOM2TekstTestid();
   tekst2DOMTestid();
   tekst2KursorTestid();
-  tahtiTekstisTestid();
-  tarkeKursoriEesTestid();
   targitestid();
   loendaTahedTestid();
 
@@ -113,23 +113,6 @@ function tekst2DOMTestid() {
     'nr 2');
 }
 
-function tahtiTekstisTestid() {
-  kuvaFunktsiooniNimetus('tahtiTekstis');
-  test(tahtiTekstis('abcd'), 4, 'nr 1');
-  test(tahtiTekstis('a'), 1, 'nr 2');
-  test(tahtiTekstis(''), 0, 'nr 3');
-}
-
-function tarkeKursoriEesTestid() {
-  kuvaFunktsiooniNimetus('tarkeKursoriEes');
-  var s = { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" };
-  test(tarkeKursoriEes( s, { Span: "B", Pos: 1 }), 9, 'nr 1');
-  test(tarkeKursoriEes( s, { Span: "V", Pos: 0 }), 8, 'nr 2');
-  test(tarkeKursoriEes( s, { Span: "K2", Pos: 0 }), 8, 'nr 3');
-  test(tarkeKursoriEes( s, { Span: "K1", Pos: 0 }), 7, 'nr 4');
-  test(tarkeKursoriEes( s, { Span: "A", Pos: 3 }), 3, 'nr 5');
-}
-
 function targitestid() {
   kuvaFunktsiooniNimetus('taht');
   test(taht('|'), false, '');
@@ -148,50 +131,6 @@ function loendaTahedTestid() {
   test(loendaTahed('|'), 0, '|');
   test(loendaTahed('ab,.c!'), 3, 'ab,.c!');
   test(loendaTahed(''), 0, 'tühi string');
-}
-
-function suurtaheksTestid() {
-  kuvaFunktsiooniNimetus('suurtaheks');
-  test(suurtaheks('ab|cd'), 'ab|Cd', 'lihtne test');
-  test(suurtaheks('|ab'), '|Ab', 'piirjuhutest 1');
-  test(suurtaheks('ab|'), 'ab|', 'piirjuhutest 2');
-}
-
-function vaiketaheksTestid() {
-  kuvaFunktsiooniNimetus('vaiketaheks');
-  test(vaiketaheks('ab|CD'), 'ab|cD', 'lihtne test');
-  test(vaiketaheks('|AB'), '|aB', 'piirjuhutest 1');
-  test(vaiketaheks('AB|'), 'AB|', 'piirjuhutest 2');
-}
-
-function vahetaPooledTestid() {
-  kuvaFunktsiooniNimetus('vahetaPooled');
-  test(vahetaPooled('|'), '|', 'Tühitekst');
-  test(vahetaPooled('ab|ba'), '|baab', 'Lihtne');
-  test(vahetaPooled('a b|b, a'), '|b, aa b', 'Kirjavahemärkidega');
-  test(vahetaPooled('ab| ba'), '| baab', 'Esitühiku kõrvaldamine');
-}
-
-function leiaTahtTestid() {
-  kuvaFunktsiooniNimetus('leiaTaht');
-  test(leiaTaht().taht, '', 'Argumendid puudu');
-  test(leiaTaht('a').taht, '', 'Osa argumente puudu');
-  test(leiaTaht('a', '1').taht, '', 'index ei ole number');
-  test(leiaTaht('a', 2).taht, '', 'index liiga suur');
-  test(leiaTaht('a', -1).taht, '', 'index liiga väike');
-  test(leiaTaht('abc', 2).taht, 'b', 'Lihtne otsing, taht');
-  test(leiaTaht('abc', 2).indeks, 1, 'Lihtne otsing, taht');
-  test(leiaTaht('abc', 2).sonaAlguses, false, 'Lihtne otsing, sõna alguses? Ei');
-  test(leiaTaht('abc', 2).sonaLopus, false, 'Lihtne otsing, sõna lõpus? Ei');
-  test(leiaTaht('a bc', 2).sonaAlguses, true, 'Lihtne otsing, sõna alguses? Jah');
-  test(leiaTaht('a bc', 1).sonaLopus, true, 'Lihtne otsing, sõna lõpus? Jah');
-  test(leiaTaht('a bc', 1).indeks, 0, 'Lihtne otsing, sõna lõpus? Jah');
-  test(leiaTaht('Ajate luulu, luuletaja!', 11).taht, 'l', 'Otsing kirjavahemärkidega stringis, taht');
-  test(leiaTaht('Ajate luulu, luuletaja!', 11).indeks, 13, 'Otsing kirjavahemärkidega stringis, taht');
-  test(leiaTaht('Ajate luulu, luuletaja!', 11).sonaAlguses, true, 'Otsing kirjavahemärkidega stringis, sõna alguses? Jah');
-  test(leiaTaht('Ajate luulu, luuletaja!', 10).sonaAlguses, false, 'Otsing kirjavahemärkidega stringis, sõna alguses? Ei');
-  test(leiaTaht('Eakas teema.⏎Teretame.⏎Etsakae!', 11).taht, 'T', 'Otsing reavahetustega tekstis');
-  test(leiaTaht('Eakas teema.⏎Teretame.⏎Etsakae!', 11).sonaAlguses, true, 'Otsing reavahetustega tekstis, sõna alguses? Jah');
 }
 
 function kuvaFunktsiooniNimetus(fN) {
