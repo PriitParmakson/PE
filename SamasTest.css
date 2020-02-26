@@ -1,0 +1,31 @@
+
+  body, textarea, button, input, legend {  
+    font-family: 'Times New Roman', serif !important;
+    font-size: 14pt !important;
+  }
+
+  body { padding: 2rem 2rem 8rem 2rem; }
+
+  #Testitulemused {  }
+
+  .tulemuserida { 
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .ring { 
+    width: 32px; height: 32px;
+    border-radius: 16px;
+  }
+  .edukas { 
+    border: 1px solid Aqua;
+    background-color: Azure;
+  }
+  .ebaedukas {
+    border: 1px solid Red;
+    background-color: linen;
+    }
+
+  .tekstiosa {
+    margin-left: 2rem;}
