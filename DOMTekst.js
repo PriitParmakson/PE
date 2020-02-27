@@ -35,13 +35,13 @@ function DOM2Tekst(s, k) {
 // Tärgiga '|' on tekstis tähistatud kursori asukoht.
 function tekst2DOM(t) {
   if (silumistase > 0) {
-    console.log('tekst2DOM: tekst: ' + t);
+    console.log('tekst->DOM: tekst: ' + t + ' l=' + t.length);
   }
   var s = { A: "", K1: "", V: "", K2: "", B: "" };
   // Puuduv kursor?
   if (t.indexOf('|') < 0) {
     if (silumistase > 0) {
-      console.log('tekst2DOM: VIGA: Tekstis puudub kursor');
+      console.log('tekst->DOM: VIGA: Tekstis puudub kursor');
     }
     return s;
   }
@@ -49,14 +49,13 @@ function tekst2DOM(t) {
   // Tühitekst.
   if (t.length == 1) {
     if (silumistase > 0) {
-      console.log('tekst2DOM: s: ' + JSON.stringify(s));
+      console.log('tekst->DOM: s: ' + JSON.stringify(s));
     }
     return s;
   }
 
   // Eemalda kursor ('|').
   t = t.replace(/\|/g, "");
-  console.log('Kursor eemaldatud: ' + t);
 
   // Ettevalmistused kesktähtede äratundmiseks.
   var tl = 0; // Läbitud tähti
@@ -73,13 +72,13 @@ function tekst2DOM(t) {
         // Üksiku kesktähe loeme vasakpoolseks.
         s.K1 = t[e];
         if (silumistase > 0) {
-          console.log('tekst2DOM: s: ' + JSON.stringify(s));
+          console.log('tekst->DOM: s: ' + JSON.stringify(s));
         }
         return s;
       }
       // Vahetärgid eeldavad kaksikkesktähte ja peavad olema juba töödeldud.
       if (silumistase > 0) {
-        console.log('tekst2DOM: s: undefined');
+        console.log('tekst->DOM: s: undefined');
       }
       return undefined;
     }
@@ -99,7 +98,7 @@ function tekst2DOM(t) {
     // Siin peavad esimene ja viimane tärk olema üks ja sama täht.
     if (t[e] !== t[v]) {
       if (silumistase > 0) {
-        console.log('tekst2DOM: s: undefined');
+        console.log('tekst->DOM: s: undefined');
       }
       return undefined;
     }
@@ -113,7 +112,7 @@ function tekst2DOM(t) {
       v--;
       s.V = t.substring(e, v + 1);
       if (silumistase > 0) {
-        console.log('tekst2DOM: s: ' + JSON.stringify(s));
+        console.log('tekst->DOM: s: ' + JSON.stringify(s));
       }
       return s;
     }
@@ -133,7 +132,7 @@ function tekst2DOM(t) {
 // Kutsub välja ja kasutab tekst2DOM. 
 function tekst2Kursor(t) {
   if (silumistase > 0) {
-    console.log("tekst2Kursor: tekst: " + t);
+    console.log("tekst->Kursor: tekst: " + t);
   }
   var k = { Span: 'A', Pos: 0 };
   var s = tekst2DOM(t);
@@ -154,7 +153,7 @@ function tekst2Kursor(t) {
     }
   }
   if (silumistase > 0) {
-    console.log("tekst2Kursor: k: " + JSON.stringify(k));
+    console.log("tekst->Kursor: k: " + JSON.stringify(k));
   }
   return k;
 }

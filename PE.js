@@ -56,11 +56,11 @@ function seaTekstinupukasitlejad() {
 
   $('#Poolednupp').click(() => {
     var s = loeDOM();
-    var j = s.A;
-    s.A = s.B;
-    s.B = j;
-    s.K2 = s.K1;
-    kuvaTekst(s, { Span: 'A', Pos: 0 });
+    // Vaheta pooled, tuues kaksiktähe välja ja pannes kursori keskele.
+    var u = s.K1 + s.B + '|' + s.V + s.A + s.K1;
+    s = tekst2DOM(u);
+    var k = tekst2Kursor(u);
+    kuvaTekst(s, k);
     $('#Tekst').focus();
   });
 
@@ -383,13 +383,18 @@ function kuvaKesktahtYhekordselt(mode) {
 
 // tootleBackspace eemaldab kursori ees oleva tärgi.
 // Eemaldab ka eemaldamise tulemusena võimalikult tekkivad korduvad tühikud.
+// Eemaldab ka eemaldamise tulemusena võimalikult tekkiva esi- ja lõputühiku.
 function tootleBackspace() {
   var k = loeKursor(); // Kursor.
   var s = loeDOM(); // Samatekst DOM-kujul.
 
   var t = DOM2Tekst(s, k);
   t = eemaldaTark(t, true);
-  t = t.replace(/  /g, " ");
+  // Tühikute eemaldamine
+  t = t.replace(/  /g, ' ');
+  t = t.replace(/ \| /g, '| ');
+  t = t.replace(/^ /, '');
+  t = t.replace(/ $/, '');
 
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
