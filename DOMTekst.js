@@ -98,7 +98,9 @@ function tekst2DOM(t) {
     // Siin peavad esimene ja viimane tärk olema üks ja sama täht.
     if (t[e] !== t[v]) {
       if (silumistase > 0) {
-        console.log('tekst->DOM: s: undefined');
+        console.log('**tekst->DOM: s: undefined ', 'e=', e, ' v=', v);
+        console.log('**tekst->DOM: s: undefined ', 't=', t);
+        console.log('**tekst->DOM: s: undefined ', 't[e]=', t[e], ' t[v]=', t[v]);
       }
       return undefined;
     }
@@ -121,6 +123,8 @@ function tekst2DOM(t) {
     s.A = s.A + t[e];
     s.B = t[v] + s.B;
     tl = tl + 2;
+    console.log('tekst->DOM: tähepaar e=', e, ' v=', v);
+    console.log('  t[e]=', t[e], ' t[v]=', t[v], ' lõik: ' + t.substring(e, v + 1));
     e++;
     v--;
 

@@ -102,11 +102,16 @@ function loeDOM() {
   s.B = $('#B').text();
   // Eemalda 0-pikkusega tühik, mis pannakse span-elementi A tühja samateksti
   // korral.
-  if (s.A == '&#8203;') {
+  if (s.A.length == 1 &&
+      s.K1.length == 0 &&
+      s.V.length == 0 &&
+      s.B.length == 0) {
     s.A = '';
   }
   if (silumistase > 0) {
-    console.log('loeDOM: ' + JSON.stringify(s));
+    console.log('loeDOM: ', JSON.stringify(s), ' l=',
+      s.A.length + s.K1.length + s.V.length + s.K2.length + s.B.length);
+    console.log('s.A=', s.A);
   }
   return s;
 }
