@@ -5,13 +5,13 @@ var silumistase = 2;
 
 // taidaTestid täidab testid.
 function taidaTestid() {
-  lisaTarkTestid();
-  eemaldaTarkTestid();
-  DOM2TekstTestid();
+  // lisaTarkTestid();
+  // eemaldaTarkTestid();
+  // DOM2TekstTestid();
   tekst2DOMTestid();
-  tekst2KursorTestid();
-  targitestid();
-  loendaTahedTestid();
+  // tekst2KursorTestid();
+  // targitestid();
+  // loendaTahedTestid();
 
   kuvaStatistika();
 }
@@ -104,14 +104,46 @@ function tekst2KursorTestid() {
 function tekst2DOMTestid() {
   kuvaFunktsiooniNimetus('tekst2DOM');
   test(
+    tekst2DOM('|aamen udune maa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
+    'kursor A alguses');
+  test(
     tekst2DOM('aam|en udune maa').toString(),
     { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
-    'nr 1');
+    'kursor A-s');
+  test(
+    tekst2DOM('aamen |udune maa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
+    'kursor A-s, tühiku järel');
+  test(
+    tekst2DOM('aamen| udune maa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
+    'kursor A-s, tühiku ees');
+  test(
+    tekst2DOM('aamen udune |maa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
+    'kursor B-s, tühiku järel');
+  test(
+    tekst2DOM('aamen udune| maa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
+    'kursor B-s, tühiku ees');
+  test(
+    tekst2DOM('aamen udune maa|').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }.toString(),
+    'kursor lõpus');
+  test(
+    tekst2DOM('aamen uddune m|aa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "d", B: "une maa" }.toString(),
+    'kursor B-s, kesktäht paariti');
+  test(
+    tekst2DOM('aamen ud, dune m|aa').toString(),
+    { A: "aamen u", K1: "d", V: "", K2: "d", B: "une maa" }.toString(),
+    'kursor B-s, kesktäht paariti, vahega');
   test(
     tekst2DOM('a am ! m a|a').toString(),
     { A: "a a", K1: "m", V: " ! ", K2: "m", B: "m aa" }.toString(),
     'nr 2');
-}
+  }
 
 function targitestid() {
   kuvaFunktsiooniNimetus('taht');
