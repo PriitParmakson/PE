@@ -2,28 +2,31 @@
 // 
 // 1.  Tekst koosneb tähtedest, kirjavahemärkidest ja kursorist.
 //
-// 2.  Täht on kas ladina täht, täpitäht või vene täht.
+// 2.  Tekst ei ole tühi. See tähendab, et tekstis on vähemalt üks täht või 
+//     kirjavahemärk..
 //
-// 3.  Ladina täht on tärk, hulgast: a..z (97..122), A..Z (65..90).
+// 3.  Täht on kas ladina täht, täpitäht või vene täht.
+//
+// 4.  Ladina täht on tärk, hulgast: a..z (97..122), A..Z (65..90).
 //     Märkus. Sulgudes on tärgi kood.
 //
-// 4.  Täpitäht on tärk hulgast: õ (245), ö (246), ä (228), ü (252), Õ (213),
+// 5.  Täpitäht on tärk hulgast: õ (245), ö (246), ä (228), ü (252), Õ (213),
 //     Ö (214), Ä (196), Ü (220), š (353), Š (352), ž (382), Ž (381).
 //
-// 5.  Vene täht on tärk, mille kood on vahemikus 1024..1279.
+// 6.  Vene täht on tärk, mille kood on vahemikus 1024..1279.
 //
-// 6.  Kirjavahemärk on kas / (47), tühik (32), koma (44), punkt (46), - 45,
+// 7.  Kirjavahemärk on kas / (47), tühik (32), koma (44), punkt (46), - 45,
 //     ! (33), ? 63, ( (40), ) (41), : (58), ; (59) või " (34).
 //     Märkus. / esitab reavahetust.
 //
-// 7.  Kursor on tärk '|'.
+// 8.  Kursor on tärk '|'.
 //
-// 8.  Tekstis kahte või enamat järjestikust tühikut. Seejuures ka kursori ees 
+// 9.  Tekstis kahte või enamat järjestikust tühikut. Seejuures ka kursori ees 
 //     ja järel ei ole üheaegselt tühikud.
 //
-// 9.  Tekst ei alga ega lõpe tühikuga.
+// 10.  Tekst ei alga ega lõpe tühikuga.
 //
-// 10. Tekstis sisalduv tähejada on - kui suur- ja väiketäht lugeda samaks - 
+// 11. Tekstis sisalduv tähejada on - kui suur- ja väiketäht lugeda samaks - 
 //     sama nii algusest kui ka lõpust lugedes.
 //
 // Samateksti DOM-kuju ja DOM-kursor on Javascripti objektid, mis hoiavad samateksti

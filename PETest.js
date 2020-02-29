@@ -7,6 +7,7 @@ var cyan = 'color: cyan;';
 
 // taidaTestid täidab testid.
 function taidaTestid() {
+  onSamatekstTestid();
   lisaTarkTestid();
   eemaldaTarkTestid();
   DOM2TekstTestid();
@@ -16,6 +17,21 @@ function taidaTestid() {
   loendaTahedTestid();
 
   kuvaStatistika();
+}
+
+function onSamatekstTestid() {
+  kuvaFunktsiooniNimetus('onSamatekst');
+  test(onSamatekst(''), false, '<kursorita tühitekst>');
+  test(onSamatekst('abc'), false, '<kursorita>');
+  test(onSamatekst('|'), false, '<kursoriga tühitekst>');
+  test(onSamatekst('c|'), true, 'c|');
+  test(onSamatekst('c.|'), true, 'c.|');
+  test(onSamatekst('c.|c'), true, 'c.|c');
+  test(onSamatekst('c.#|c'), false, 'c.#|c');
+  test(onSamatekst('a b.c. |c ba!'), true, 'a b.c. |c ba!');
+  test(onSamatekst('a  b.c. |c ba!'), false, 'a  b.c. |c ba!');
+  test(onSamatekst(' c.|c'), false, ' c.|c');
+  test(onSamatekst(' c.|c '), false, ' c.|c ');
 }
 
 function lisaTarkTestid() {

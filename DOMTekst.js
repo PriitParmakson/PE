@@ -2,6 +2,55 @@
 
 // Samateksti teisendamine DOM-kujust ja DOM-kursorist tekstikujule ja vastupidi.
 
+// onSamatekst kontrollib, kas t on tekstikujul, nõuetele vastav samatekst.
+function onSamatekst(t) {
+  // Puuduv kursor?
+  if (t.indexOf('|') < 0) { return false; }
+  // Eemalda kursor ('|').
+  t = t.replace(/\|/g, "");
+  // Tühitekst?
+  if (t.length == 0) {
+    return false;
+  }
+  // Algab tühikuga?
+  if (t[0] == ' ') { return false; }
+  // Lõpeb tühikuga?
+  if (t[t.length - 1] == ' ') { return false; }
+  // Kaks järjestikust tühikut?
+  if (t.indexOf('  ') >= 0) { return false; }
+
+  // Esimese ja viimase tärgi positsioon vaatlusaluses sõne lõigus.  
+  var e = 0;
+  var v = t.length - 1;
+  do {
+    // Veakaitse.
+    if (e > v) { return false; }
+
+    // Läbi kv-märgid eesotsast. 
+    while (e < t.length && kirjavm(t[e])) { e++; }
+    // Läbi kv-märgid tagaotsast.
+    while (0 <= v && kirjavm(t[v])) { v--; }
+
+    // Ei sisalda tähti
+    if (e > v) { return true; }
+
+    // Viimane tärk?
+    if (e == v) {
+      if (taht(t[e]) || kirjavm(t[e])) {
+        return true;
+      }    
+      return false;
+    }    
+
+    // Siin peavad esimene ja viimane tärk olema üks ja sama täht. (Lugedes
+    // suur- ja väiketähe samaks.)
+    if (t[e].toUpperCase() !== t[v].toUpperCase()) { return false; }
+    // Tähepaar.
+    e++;
+    v--;
+  } while (true); 
+}
+
 // DOM2Tekst tagastab DOM-kujule s ja kursorile k vastava, tekstikujul samateksti.
 function DOM2Tekst(s, k) {
   var koguja = "";
@@ -59,13 +108,13 @@ function tekst2DOM(t) {
     }
 
     // Kanna kv-märgid eesotsast span-elementi A. 
-    while (kirjavm(t[e])) {
+    while (e < t.length && kirjavm(t[e])) {
       s.A = s.A + t[e];
       e++;
     }
 
     // Kanna kv-märgid tagaotsast span-elementi B.
-    while (kirjavm(t[v])) {
+    while (0 <= v && kirjavm(t[v])) {
       s.B = t[v] + s.B;
       v--;
     }
@@ -122,7 +171,6 @@ function tekst2DOM(t) {
 }
 
 // tekst2Kursor tagastab tekstikujul samatekstile t vastava DOM-kuju kursori.
-// Tärgiga '|' on tekstis tähistatud kursori asukoht.
 // Kutsub välja ja kasutab tekst2DOM. 
 function tekst2Kursor(t) {
   var k = { Span: 'A', Pos: 0 };
