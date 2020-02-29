@@ -5,13 +5,13 @@ var silumistase = 2;
 
 // taidaTestid täidab testid.
 function taidaTestid() {
-  // lisaTarkTestid();
-  // eemaldaTarkTestid();
-  // DOM2TekstTestid();
+  lisaTarkTestid();
+  eemaldaTarkTestid();
+  DOM2TekstTestid();
   tekst2DOMTestid();
-  // tekst2KursorTestid();
-  // targitestid();
-  // loendaTahedTestid();
+  tekst2KursorTestid();
+  targitestid();
+  loendaTahedTestid();
 
   kuvaStatistika();
 }

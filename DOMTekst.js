@@ -1,20 +1,8 @@
 'use strict';
 
-// Samateksti teisendamine DOM-kujust tekstikujule ja vastupidi.
-// Tekstikujul samatekst on sõne, mis vastab tingimustele:
-// 1) koosneb f-ga taht() kontrollitavatest tähtedest, f-ga kirjavm()
-// kontrollitavatest kirjavahemärkidest ja tärgist '|' (mis tähistab kursori
-// asukohta);
-// 2) tähtede jada on - kui suur- ja väiketäht lugeda samaks - sama nii algusest
-// kui ka lõpust lugedes.
-// Nt. DOM-kuju:
-//    s = { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }
-// Kursor:
-//    k = { Span: "A", Pos: 2}
-// Vastav tekstikuju:
-//    t = "aa|men udune maa"
+// Samateksti teisendamine DOM-kujust ja DOM-kursorist tekstikujule ja vastupidi.
 
-// DOM2Tekst tagastab DOM-kujule s ja kursorile k vastava, tekstikujul samateksti,
+// DOM2Tekst tagastab DOM-kujule s ja kursorile k vastava, tekstikujul samateksti.
 function DOM2Tekst(s, k) {
   var koguja = "";
 

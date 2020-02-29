@@ -1,8 +1,9 @@
 'use strict';
 
-// Mida suurem, seda rohkem teavet konsoolile kuvatakse.
-// 0 - ei kuvata midagi.
+// Mida suurem, seda rohkem teavet konsoolile kuvatakse. 0 - ei kuvata midagi.
 var silumistase = 2;
+// Konsoolile väljastatava silumisteabe värvimiseks.
+var cyan = 'color: cyan;';
 
 // Peaprogramm. Mitmesugused algväärtustamised.
 function init() {
@@ -126,13 +127,13 @@ function loeDOM() {
 //     s.V   - vaheosa (kirjavahemärgid);
 //     s.K2  - parempoolne kesktäht (võib olla tühi);
 //     s.B   - parempoolne tekst.
-//   kursor - kuhu panna kursor
-//     kursor.Span - span-element
-//     kursor.Pos - positsioon span-elemendis.
+//   k - kuhu panna kursor
+//     k.Span - span-element
+//     k.Pos - positsioon span-elemendis.
 // span-elementide id-d: 'A', 'K1', 'V', 'K2', 'B'.
 // Tühja teksti korral lisa 0-pikkusega tühik. See on vajalik kursori
 // positsioneerimiseks.
-function kuvaTekst(s, kursor) {
+function kuvaTekst(s, k) {
   if (
     s.A.length == 0 &&
     s.K1.length == 0 &&
@@ -156,19 +157,12 @@ function kuvaTekst(s, kursor) {
 
   // Sea kursor (caret).
   var range = document.createRange();
-  var el = document.getElementById(kursor.Span);
-  range.setStart(el.childNodes[0], kursor.Pos);
+  var el = document.getElementById(k.Span);
+  range.setStart(el.childNodes[0], k.Pos);
   range.collapse(true); // Lõpp ühtib algusega
   var valik = document.getSelection();
   valik.removeAllRanges();
   valik.addRange(range);
-
-  if (silumistase > 0) {
-    console.log(
-      'kuvaTekst:' + ' caret seatud tippu ' +
-      kursor.Span + ', positsiooni ' + kursor.Pos
-    );
-  }
 
   // Uuenda täheloendurit.
   var tahti = loendaTahed(s.A) * 2 +
@@ -196,13 +190,18 @@ function kuvaTekst(s, kursor) {
   }
 
   // Väljasta silumiseks konsoolile.
-  var tekstKonsoolile = m
-    .replace(/<span id='/gi, ' ')
-    .replace(/'>/gi, '(')
-    .replace(/' class='kesk/gi, '')
-    .replace(/<\/span>/gi, ')');
   if (silumistase > 0) {
-    console.log('kuvaTekst: ' + tekstKonsoolile);
+    var tekstKonsoolile = m
+      .replace(/<span id='/gi, ' ')
+      .replace(/'>/gi, '(')
+      .replace(/' class='kesk/gi, '')
+      .replace(/<\/span>/gi, ')');
+    console.log('kuvaTekst: %c' + tekstKonsoolile, cyan);
+    console.log(
+      'kuvaTekst:' + ' caret seatud: %c' + 
+      kursor.Span + ', ' + kursor.Pos,
+      cyan
+    );
   }
 }
 
@@ -220,9 +219,9 @@ function keydownKasitleja(e) {
 
   if (silumistase > 1) {
     console.log(
-      'keydownKasitleja: klahvivajutus: ' +
+      'keydownKasitleja: %c' +
       (ctrlDown ? ' Ctrl + ' : ' ') +
-      keyCodeToHumanReadable(keyCode) + '(' + keyCode + ')'
+      keyCodeToHumanReadable(keyCode) + '(' + keyCode + ')', cyan
     );
   }
 
@@ -253,13 +252,13 @@ function keypressKasitleja(e) {
 
   if (silumistase > 1) {
     if (ctrlDown) {
-      console.log('keypressKasitleja: klahvivajutus Ctrl');
+      console.log('keypressKasitleja: %cCtrl', cyan);
     }
     else {
       console.log(
-        'keypressKasitleja: klahvivajutus ' +
+        'keypressKasitleja: %c' +
         String.fromCharCode(charCode) +
-        ' (tärgikood: ' + charCode + ')'
+        ' (tärgikood: ' + charCode + ')', cyan
       );
     }
   }
@@ -305,17 +304,15 @@ function lisaTahtVoiPunktuatsioon(charCode) {
   }
   // Enter vajutus asenda siseesituses tärgiga '/'.
   var charTyped = charCode == 13 ? '/' : String.fromCharCode(charCode);
-  // Silumisteade
+
   var k = loeKursor(); // Kursor.
   var s = loeDOM(); // Samatekst DOM-kujul.
-
   var t = DOM2Tekst(s, k);
+
   t = lisaTark(t, charTyped);
-  t = t.replace(/  /g, " ");
 
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
-
   kuvaTekst(s, k);
 }
 
@@ -334,9 +331,9 @@ function loeKursor() {
   var kursorPos = r.startOffset;
   if (silumistase > 0) {
     console.log(
-      'loeKursor: kursor: ' +
+      'loeKursor: loetud: %c' +
       kursorSpan.toString() +
-      ', pos ' + kursorPos.toString()
+      ', pos ' + kursorPos.toString(), cyan
     );
   }
   return { Span: kursorSpan, Pos: kursorPos }
@@ -346,8 +343,8 @@ function loeKursor() {
 // Loeb DOM-st ja kirjutab tagasi.
 // Parameeter: suurtaheks - boolean.
 function muudaTaheregister(suurtaheks) {
-  var s = loeDOM(); // Samatekst DOM-kujul.
-  var k = loeKursor(); // Kursor.
+  var s = loeDOM();
+  var k = loeKursor();
   var t = DOM2Tekst(s, k);
 
   var kPos = t.indexOf('|');
@@ -360,7 +357,7 @@ function muudaTaheregister(suurtaheks) {
     (suurtaheks ? t[kPos + 1].toUpperCase() : t[kPos + 1].toLowerCase()) +
     t.substring(kPos + 2);
 
-  console.log('muudaTaheregister: muudetud: %c' + t, 'color: lightblue;')
+  console.log('muudaTaheregister: muudetud: %c' + t, cyan)
 
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
@@ -387,38 +384,27 @@ function kuvaKesktahtYhekordselt(mode) {
 }
 
 // tootleBackspace eemaldab kursori ees oleva tärgi.
-// Eemaldab ka eemaldamise tulemusena võimalikult tekkivad korduvad tühikud.
-// Eemaldab ka eemaldamise tulemusena võimalikult tekkiva esi- ja lõputühiku.
 function tootleBackspace() {
   var k = loeKursor(); // Kursor.
   var s = loeDOM(); // Samatekst DOM-kujul.
-
   var t = DOM2Tekst(s, k);
+
   t = eemaldaTark(t, true);
-  // Tühikute eemaldamine
-  t = t.replace(/  /g, ' ');
-  t = t.replace(/ \| /g, '| ');
-  t = t.replace(/^ /, '');
-  t = t.replace(/ $/, '');
 
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
-
   kuvaTekst(s, k);
 }
 
 // tootleDelete eemaldab kursori järel oleva tärgi.
-// Kui eemaldamise tulemus tekkis korduv tühik, siis eemaldab ka selle.
 function tootleDelete() {
   var k = loeKursor(); // Kursor.
   var s = loeDOM(); // Samatekst DOM-kujul.
-
   var t = DOM2Tekst(s, k);
+
   t = eemaldaTark(t, false);
-  t = t.replace(/  /g, " ");
 
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
-
   kuvaTekst(s, k);
 }
