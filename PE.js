@@ -346,24 +346,24 @@ function loeKursor() {
 // Loeb DOM-st ja kirjutab tagasi.
 // Parameeter: suurtaheks - boolean.
 function muudaTaheregister(suurtaheks) {
+  var s = loeDOM(); // Samatekst DOM-kujul.
   var k = loeKursor(); // Kursor.
-  var s = DOM2Sise(); // Samatekst DOM-kujul.
-  // Kursori järel olev tärk.
-  var kj = s[k.Span].charAt(k.Pos);
+  var t = DOM2Tekst(s, k);
 
-  if (silumistase > 0) {
-    console.log('Kursori järel on: ' + kj);
+  var kPos = t.indexOf('|');
+  if (kPos < 0 || t.length === 1 || kPos === t.length - 1) {
+    return;
   }
 
   // Suur- või väiketäheks.
-  s[k.Span] = s[k.Span].substring(0, k.Pos) +
-    (suurtaheks ? kj.toUpperCase() : kj.toLowerCase()) +
-    s[k.Span].substring(k.Pos + 1);
+  t = t.substring(0, kPos + 1) +
+    (suurtaheks ? t[kPos + 1].toUpperCase() : t[kPos + 1].toLowerCase()) +
+    t.substring(kPos + 2);
 
-  if (silumistase > 0) {
-    console.log('Muudatud span-element: ' + s[k.Span]);
-  }
+  console.log('muudaTaheregister: muudetud: %c' + t, 'color: lightblue;')
 
+  s = tekst2DOM(t);
+  k = tekst2Kursor(t);
   kuvaTekst(s, k);
 }
 

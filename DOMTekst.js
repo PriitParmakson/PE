@@ -5,7 +5,8 @@
 // 1) koosneb f-ga taht() kontrollitavatest tähtedest, f-ga kirjavm()
 // kontrollitavatest kirjavahemärkidest ja tärgist '|' (mis tähistab kursori
 // asukohta);
-// 2) tähtede jada on sama nii algusest kui ka lõpust lugedes.
+// 2) tähtede jada on - kui suur- ja väiketäht lugeda samaks - sama nii algusest
+// kui ka lõpust lugedes.
 // Nt. DOM-kuju:
 //    s = { A: "aamen u", K1: "d", V: "", K2: "", B: "une maa" }
 // Kursor:
@@ -104,8 +105,9 @@ function tekst2DOM(t) {
       return undefined;
     }    
 
-    // Siin peavad esimene ja viimane tärk olema üks ja sama täht.
-    if (t[e] !== t[v]) {
+    // Siin peavad esimene ja viimane tärk olema üks ja sama täht. (Lugedes
+    // suur- ja väiketähe samaks.)
+    if (t[e].toUpperCase() !== t[v].toUpperCase()) {
       if (silumistase > 0) {
         console.log('tekst->DOM: %cVIGA: Tähed ei ole paariti', 'color: red;');
       }
@@ -116,7 +118,7 @@ function tekst2DOM(t) {
     if (tl + 2 == ta) {
       // Kesktähtede paar.
       s.K1 = t[e];
-      s.K2 = t[e];
+      s.K2 = t[v];
       e++;
       v--;
       s.V = t.substring(e, v + 1);
