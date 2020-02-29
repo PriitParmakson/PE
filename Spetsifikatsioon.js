@@ -18,8 +18,8 @@
 //
 // 7.  Kursor on tärk '|'.
 //
-// 8.  Kursori eemaldamise järel, ei ole tekstis kahte ega enamat järjestikust
-//     tühikut.
+// 8.  Tekstis kahte või enamat järjestikust tühikut. Seejuures ka kursori ees 
+//     ja järel ei ole üheaegselt tühikud.
 //
 // 9.  Tekst ei alga ega lõpe tühikuga.
 //
@@ -29,7 +29,7 @@
 // Samateksti DOM-kuju ja DOM-kursor on Javascripti objektid, mis hoiavad samateksti
 // sirviku DOM-s esitamiseks vajalikke väärtusi.
 //
-// Samateksti DOM-kuju väljad on (muutuja s korral);
+// Samateksti DOM-kuju väljad on (muutuja s korral):
 //
 //     s.A   - vasakpoolne tekst;
 //     s.K1  - vasakpoolne kesktäht;
@@ -37,12 +37,15 @@
 //     s.K2  - parempoolne kesktäht (võib olla tühi);
 //     s.B   - parempoolne tekst.
 //
+// Märkus. Kesktäht (kesktähed) on samateksti keskel olev täht või samadest 
+// tähtedest koosnev tähepaar.
+//
 // Samateksti DOM-kursori väljad on (muutuja k korral):
 // 
 //     k.Span - span-elemendi id ('A', 'K1', 'V', 'K2', 'B')
-//     k.Pos - positsioon span-elemendis.
+//     k.Pos - kursori positsioon span-elemendis.
 //
-// Nt. tekstikujule t = "aa|men udune maa"
+// Nt tekstikujule t = "aa|men udune maa"
 //
 // vastavad DOM-kuju (s) ja DOM-kursor (k):
 //
