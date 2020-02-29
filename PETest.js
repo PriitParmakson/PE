@@ -2,6 +2,8 @@ var edukaidTeste = 0;
 var mitteedukaidTeste = 0;
 
 var silumistase = 2;
+// Konsoolile väljastatava silumisteabe värvimiseks.
+var cyan = 'color: cyan;';
 
 // taidaTestid täidab testid.
 function taidaTestid() {
