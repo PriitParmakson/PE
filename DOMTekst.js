@@ -105,6 +105,7 @@ function tekst2DOM(t) {
     // Veakaitse.
     if (e > v) {
       console.log('tekst->DOM: %cVIGA: e > v', 'color: red;');
+      return false;
     }
 
     // Kanna kv-märgid eesotsast span-elementi A. 
@@ -167,7 +168,7 @@ function tekst2DOM(t) {
     e++;
     v--;
 
-  } while (true); 
+  } while (e <= v); 
 }
 
 // tekst2Kursor tagastab tekstikujul samatekstile t vastava DOM-kuju kursori.
