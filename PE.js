@@ -110,9 +110,7 @@ function loeDOM() {
     s.A = '';
   }
   if (silumistase > 0) {
-    console.log('loeDOM: ', JSON.stringify(s), ' l=',
-      s.A.length + s.K1.length + s.V.length + s.K2.length + s.B.length);
-    console.log('s.A=', s.A);
+    console.log('loeDOM: %c' + JSON.stringify(s), cyan);
   }
   return s;
 }
@@ -199,7 +197,7 @@ function kuvaTekst(s, k) {
     console.log('kuvaTekst: %c' + tekstKonsoolile, cyan);
     console.log(
       'kuvaTekst:' + ' caret seatud: %c' + 
-      kursor.Span + ', ' + kursor.Pos,
+      k.Span + ', ' + k.Pos,
       cyan
     );
   }
@@ -331,7 +329,7 @@ function loeKursor() {
   var kursorPos = r.startOffset;
   if (silumistase > 0) {
     console.log(
-      'loeKursor: loetud: %c' +
+      'loeKursor: %c' +
       kursorSpan.toString() +
       ', pos ' + kursorPos.toString(), cyan
     );

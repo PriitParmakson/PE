@@ -24,7 +24,7 @@ function DOM2Tekst(s, k) {
 // tekst2DOM tagastab tekstikujul samateksti t DOM-kuju.
 function tekst2DOM(t) {
   if (silumistase > 0) {
-    console.log('tekst->DOM: tekst: %c' + t, 'color: cyan;');
+    console.log('tekst->DOM: tekst: %c' + t, cyan);
   }
   var s = { A: "", K1: "", V: "", K2: "", B: "" };
   // Puuduv kursor?
@@ -47,14 +47,11 @@ function tekst2DOM(t) {
   // Ettevalmistused kesktähtede äratundmiseks.
   var tl = 0; // Läbitud tähti
   var ta = loendaTahed(t);
-  console.log('Tähti: ', ta);
 
   // Esimese ja viimase tärgi positsioon vaatlusaluses sõne lõigus.  
   var e = 0;
   var v = t.length - 1;
   do {
-
-    console.log('Uus tsükkel. e=', e, ' v=', v, ' t=', t);
 
     // Veakaitse.
     if (e > v) {
@@ -73,15 +70,13 @@ function tekst2DOM(t) {
       v--;
     }
 
-    console.log('Kv-märgid kantud. e=', e, ' v=', v, ' t=', t);
-
     // Viimane tärk?
     if (e == v) {
       if (taht(t[e])) {
         // Üksiku kesktähe loeme vasakpoolseks.
         s.K1 = t[e];
         if (silumistase > 0) {
-          console.log('tekst->DOM: DOM: ' + JSON.stringify(s));
+          console.log('tekst->DOM: %c' + JSON.stringify(s), cyan);
         }    
         return s;
       }    
@@ -120,7 +115,6 @@ function tekst2DOM(t) {
     s.A = s.A + t[e];
     s.B = t[v] + s.B;
     tl = tl + 2;
-    console.log('tekst->DOM: tähepaar e=', e, ' v=', v);
     e++;
     v--;
 
@@ -131,9 +125,6 @@ function tekst2DOM(t) {
 // Tärgiga '|' on tekstis tähistatud kursori asukoht.
 // Kutsub välja ja kasutab tekst2DOM. 
 function tekst2Kursor(t) {
-  if (silumistase > 0) {
-    console.log("tekst->Kursor: tekst: " + t);
-  }
   var k = { Span: 'A', Pos: 0 };
   var s = tekst2DOM(t);
   var ti = t.indexOf('|');
@@ -153,7 +144,7 @@ function tekst2Kursor(t) {
     }
   }
   if (silumistase > 0) {
-    console.log("tekst->Kursor: k: " + JSON.stringify(k));
+    console.log("tekst->Kursor: %c" + JSON.stringify(k), cyan);
   }
   return k;
 }
