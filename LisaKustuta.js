@@ -3,13 +3,15 @@
 // Tärkide eemaldamine ja lisamine samateksti.
 
 // eemaldaTyhikud: 1) eemaldab sõnest t algustühiku (kui see eksisteerib);
-// 2) lõputühiku (kui see eksisteerib); 2) asendab iga kahest või enamast tühikust
+// 2) lõputühiku (kui see eksisteerib); 3) asendab iga kahest või enamast tühikust
 // koosneva jada (kursorit ei arvesta) ühe tühikuga.
 function eemaldaTyhikud(t) {
+  t = t.replace(/^ /, '');
+  t = t.replace(/^\| /, '|');
+  t = t.replace(/ $/, '');
+  t = t.replace(/ \|$/, '|');
   t = t.replace(/  /g, ' ');
   t = t.replace(/ \| /g, '| ');
-  t = t.replace(/^ /, '');
-  t = t.replace(/ $/, '');
   return t;
 }
 
@@ -20,6 +22,10 @@ function eemaldaTyhikud(t) {
 // Kui eemaldada ei saa, siis tagastab muutmata teksti.
 // Kui t ei ole korrektne samatekst, siis tagastab muutmata teksti.
 function eemaldaTark(t, b) {
+  if (!onSamatekst(t)) {
+    console.log('eemaldaTark: VIGA: ei ole samatekst: %c', t); 
+    return t;
+  }
   var kpos = t.indexOf('|');
   // Eemaldatava tärgi positsioon.
   var rpos;
@@ -71,6 +77,10 @@ function eemaldaTark(t, b) {
 // Tähe lisamisel lisab ka selle peegeltähe.
 // Kui lisada ei saa, siis tagastab muutmata teksti.
 function lisaTark(t, c) {
+  if (!onSamatekst(t)) {
+    console.log('lisaTark: %cVIGA: ei ole samatekst: ' + t, 'color: red;'); 
+    return t;
+  }
   var kpos = t.indexOf('|')
   if (kirjavm(c)) {
     return eemaldaTyhikud(

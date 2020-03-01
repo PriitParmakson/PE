@@ -10,7 +10,7 @@ function onSamatekst(t) {
   t = t.replace(/\|/g, "");
   // Tühitekst?
   if (t.length == 0) {
-    return false;
+    return true;
   }
   // Algab tühikuga?
   if (t[0] == ' ') { return false; }
@@ -48,7 +48,8 @@ function onSamatekst(t) {
     // Tähepaar.
     e++;
     v--;
-  } while (true); 
+  } while (e < v);
+  return true;
 }
 
 // DOM2Tekst tagastab DOM-kujule s ja kursorile k vastava, tekstikujul samateksti.

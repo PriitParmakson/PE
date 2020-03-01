@@ -309,6 +309,10 @@ function lisaTahtVoiPunktuatsioon(charCode) {
 
   t = lisaTark(t, charTyped);
 
+  if (!onSamatekst(t)) {
+    console.log('lisaTahtVoiPunktuatsioon: VIGA: ei ole samatekst: %c', t); 
+    return;
+  }
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
   kuvaTekst(s, k);
@@ -357,6 +361,10 @@ function muudaTaheregister(suurtaheks) {
 
   console.log('muudaTaheregister: muudetud: %c' + t, cyan)
 
+  if (!onSamatekst(t)) {
+    console.log('muudaTaheregister: VIGA: ei ole samatekst: %c', t); 
+    return;
+  }  
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
   kuvaTekst(s, k);
@@ -389,6 +397,10 @@ function tootleBackspace() {
 
   t = eemaldaTark(t, true);
 
+  if (!onSamatekst(t)) {
+    console.log('tootleBackspace: VIGA: ei ole samatekst: %c', t); 
+    return;
+  }    
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
   kuvaTekst(s, k);
@@ -402,6 +414,10 @@ function tootleDelete() {
 
   t = eemaldaTark(t, false);
 
+  if (!onSamatekst(t)) {
+    console.log('tootleDelete: VIGA: ei ole samatekst: %c', t); 
+    return;
+  }    
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
   kuvaTekst(s, k);

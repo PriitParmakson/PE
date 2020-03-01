@@ -2,8 +2,7 @@
 // 
 // 1.  Tekst koosneb tähtedest, kirjavahemärkidest ja kursorist.
 //
-// 2.  Tekst ei ole tühi. See tähendab, et tekstis on vähemalt üks täht või 
-//     kirjavahemärk..
+// 2.  Tekst võib olla ka tühi.
 //
 // 3.  Täht on kas ladina täht, täpitäht või vene täht.
 //

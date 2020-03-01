@@ -23,7 +23,7 @@ function onSamatekstTestid() {
   kuvaFunktsiooniNimetus('onSamatekst');
   test(onSamatekst(''), false, '<kursorita tühitekst>');
   test(onSamatekst('abc'), false, '<kursorita>');
-  test(onSamatekst('|'), false, '<kursoriga tühitekst>');
+  test(onSamatekst('|'), true, '<kursoriga tühitekst>');
   test(onSamatekst('c|'), true, 'c|');
   test(onSamatekst('c.|'), true, 'c.|');
   test(onSamatekst('c.|c'), true, 'c.|c');
