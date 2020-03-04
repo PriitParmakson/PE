@@ -20,7 +20,7 @@
 //
 // 8.  Kursor on tärk '|'.
 //
-// 9.  Tekstis kahte või enamat järjestikust tühikut. Seejuures ka kursori ees 
+// 9.  Tekstis ei ole kahte järjestikust tühikut. Seejuures ka kursori ees 
 //     ja järel ei ole üheaegselt tühikud.
 //
 // 10.  Tekst ei alga ega lõpe tühikuga.
