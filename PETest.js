@@ -7,6 +7,8 @@ var cyan = 'color: cyan;';
 
 // taidaTestid täidab testid.
 function taidaTestid() {
+  muudaKtYhekordseksTestid();
+  /*
   onSamatekstTestid();
   lisaTarkTestid();
   eemaldaTarkTestid();
@@ -15,8 +17,20 @@ function taidaTestid() {
   tekst2KursorTestid();
   targitestid();
   loendaTahedTestid();
+  */
 
   kuvaStatistika();
+}
+
+function muudaKtYhekordseksTestid() {
+  kuvaFunktsiooniNimetus('muudaKtYhekordseks');
+  test(muudaKtYhekordseks('|'), '|', 'tühitekst');
+  test(muudaKtYhekordseks('|aa'), '|a', '|aa');
+  test(muudaKtYhekordseks('a| b .- b a'), 'a| b a', 'a| b .- b a');
+  test(muudaKtYhekordseks('ab|ba'), 'ab|a', 'ab|ba');
+  test(muudaKtYhekordseks('abb|a'), 'ab|a', 'abb|a');
+  test(muudaKtYhekordseks('abb|a .'), 'ab|a .', 'abb|a .');
+  test(muudaKtYhekordseks('abc,c ba|'), 'abc ba|', 'abc,c ba|');
 }
 
 function onSamatekstTestid() {

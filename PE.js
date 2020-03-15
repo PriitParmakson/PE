@@ -8,7 +8,7 @@ var cyan = 'color: cyan;';
 // Peaprogramm. Mitmesugused algväärtustamised.
 function init() {
 
-  seaInfopaaniKasitlejad();
+  seaTeabepaanideKasitlejad();
   seaRedaktoriKasitlejad();
   seaTekstinupukasitlejad();
 
@@ -27,7 +27,7 @@ function init() {
 }
 
 // Infopaani käsitlejad: avamine, sulgemine.
-function seaInfopaaniKasitlejad() {
+function seaTeabepaanideKasitlejad() {
   $('#Info').click(() => {
     $('#Infopaan').removeClass('peidetud');
     $('#Info').addClass('disabled');
@@ -36,6 +36,10 @@ function seaInfopaaniKasitlejad() {
   $('#InfopaanSulge').click(() => {
     $('#Infopaan').addClass('peidetud');
     $('#Info').removeClass('disabled');
+  });
+
+  $('#TeatepaanSulge').click(() => {
+    $('#Teatepaan').addClass('peidetud');
   });
 }
 
@@ -375,14 +379,16 @@ function muudaTaheregister(suurtaheks) {
 function kuvaKesktahtYhekordselt(mode) {
   var s = loeDOM(); // Samatekst DOM-kujul.
   var k = loeKursor(); // Kursor.
+  var t = DOM2Tekst(s, k);
 
-  // Lülita ühekordne kuvamine sisse/välja.
+  // Lülita ühekordne kuvamine sisse.
   if (mode) {
-    s.K2 = '';
-    if (k.Span == 'K2') {
-      k.Span = 'K1';
-    }
-  } else {
+    t = muudaKtYhekordseks(t);
+    s = tekst2DOM(t);
+    k = tekst2Kursor(t);
+  }
+  // Lülita ühekordne kuvamine välja.
+  else {
     s.K2 = s.K1;
   }
 
@@ -421,4 +427,10 @@ function tootleDelete() {
   s = tekst2DOM(t);
   k = tekst2Kursor(t);
   kuvaTekst(s, k);
+}
+
+// kuvaTeade kuvab teate.
+function kuvaTeade(t) {
+  $('#Teatetekst').text(t);
+  $('#Teatepaan').removeClass('peidetud');
 }

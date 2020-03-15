@@ -29,8 +29,8 @@ body, input {
   margin-bottom: 1rem; }
 #Tekst:focus {
   border-color: LightGray;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.055) inset,
-    0 0 8px rgba(220, 180, 220, 0.6);
+  /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.055) inset,
+    0 0 8px rgba(220, 180, 220, 0.6); */
   outline: 0 none;
 }
 
@@ -42,13 +42,6 @@ input {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
-#Tekst:focus {
-  border-color: LightGray;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.055) inset,
-    0 0 8px rgba(220, 180, 220, 0.6);
-  outline: 0 none;
-}
-
 .kesk { color: DarkBlue;
   font-weight: 600; }
 .poord { color: Tomato; }  
@@ -95,8 +88,8 @@ input {
 
 /* Teave */
 .teabepaan {
-  border: 1px solid Aqua;
-  background-color: Azure;
+  border: 1px solid darkgray;
+  background-color: honeydew;
 }
 .aarisega {
   margin: 0.8rem;
@@ -114,16 +107,14 @@ input {
 
 /* Lingid */
 a, a:hover, a:active, a:visited {
-  color: darkorange !important;
+  color: darkgray !important;
   text-decoration: underline;
   text-decoration-style: dashed;
 }
 
 /* Täheloendur */
 .Loendur {
-  border: 1px dotted Tomato;
-  color: Tomato;
-  border-radius: 2px;
+  color: darkgray;
   padding: 2px;
   font-family: 'Courier New', monospace;
   font-size: 12pt;

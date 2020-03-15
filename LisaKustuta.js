@@ -24,6 +24,7 @@ function eemaldaTyhikud(t) {
 function eemaldaTark(t, b) {
   if (!onSamatekst(t)) {
     console.log('eemaldaTark: VIGA: ei ole samatekst: %c', t); 
+    kuvaTeade('VIGA: Ei ole samatekst');
     return t;
   }
   var kpos = t.indexOf('|');
@@ -78,7 +79,8 @@ function eemaldaTark(t, b) {
 // Kui lisada ei saa, siis tagastab muutmata teksti.
 function lisaTark(t, c) {
   if (!onSamatekst(t)) {
-    console.log('lisaTark: %cVIGA: ei ole samatekst: ' + t, 'color: red;'); 
+    console.log('lisaTark: %cVIGA: ei ole samatekst: ' + t, 'color: red;');
+    kuvaTeade('VIGA: Ei ole samatekst');
     return t;
   }
   var kpos = t.indexOf('|')
@@ -141,5 +143,89 @@ function lisaTark(t, c) {
       }
     }
   } while(e <= v)
+  return t;
+}
+
+// muudaKtYhekordseks muudab samateksti t kesktähe ühekordseks,
+// kui see seda juba ei ole.
+function muudaKtYhekordseks(t) {
+  if (!onSamatekst(t)) {
+    console.log(
+      'muudaKtYhekordseks: %cProgrammiviga: ei ole samatekst: ' + t,
+     'color: red;'
+    );
+    // kuvaTeade('Programmiviga (Ei ole samatekst)');
+    return t;
+  }
+  // Tühitekst tagasta samal kujul.
+  if (t.length == 1) {
+    return t;
+  }
+
+  var ta = loendaTahed(t);
+  // Kui on juba ühekordne, siis tagasta samal kujul.
+  if (ta % 2 == 1) {
+    return t;
+  }
+
+  // Tähepaaride arv.
+  var p = ta / 2;
+  // Leitud tähepaaride arv.
+  var pl = 0;
+
+  // Läbi tekst, liikudes mõlemast otsast, leia keskmine tähepaar ja eemalda 
+  // keskmise tähepaari tagumine täht.
+  var e = 0;
+  var v = t.length - 1;
+  // Lõputu tsükli kaitse.
+  var g = 0;
+  do {
+    g++;
+    // Liigu kirjavahemärkidest ja kursorist üle. Tulemusena võivad e ja v 
+    // saada võrdseks.
+    if (kirjavm(t[e]) || t[e] == '|') {
+      // Kaitseks programmivigade vastu.
+      if (e < v && (e < t.length - 1)) {
+        e++;
+      }
+    }
+    if (kirjavm(t[v]) || t[v] == '|') {
+      // Kaitseks programmivigade vastu.
+      if (e < v && v >= 0) {
+        v--;
+      }
+    }
+
+    // Tähepaar?
+    if (taht(t[e]) && taht(t[v])) {
+      // Kaitse programmivea vastu.
+      if (e == v) {
+        console.log('muudaKtYhekordseks: %cProgrammiviga', 'color: red;');
+        // kuvaTeade('Programmi viga');
+        return t;
+      }
+      pl++;
+      // Keskmine tähepaar?
+      if (pl == p) {
+        // Eemalda keskmise tähepaari tagumine täht. Ühtlasi eemalda keskmise
+        // tähepaari vahel olevad kirjavahemärgid, kuid mitte kursor.
+        return eemaldaTyhikud(
+          t.substring(0, e + 1) +
+          (t.substring(e + 1, v).indexOf('|') >= 0 ? '|' : '') +
+          t.substring(v + 1)
+        );
+      }
+      // Kui ei ole keskmine tähepaar, siis liigu edasi.
+      else {
+        e++;
+        v--;
+      }
+    }
+
+  } while(e <= v && g < 100)
+  console.log(
+    'muudaKtYhekordseks: %cProgrammiviga: Tsüklikordade piirarv ületatud',
+    'color: red;'
+  );
   return t;
 }
